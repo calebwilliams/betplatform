@@ -1,0 +1,38 @@
+﻿<!--<div class="panel">
+    <div class="panel-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>//TODO:</h2> 
+                </div>
+            </div>
+            <div class="row">
+                
+            </div>
+        </div>
+    </div>
+</div>-->
+<!--<h2>Test</h2>
+<table class='table' *ngIf="tasks">
+    <thead>
+        <tr>
+            <th>Test Header</th>
+            <th>Test Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let task of tasks">
+            <td>{{task.taskName}}</td>
+            <td>{{task.deadline}}</td>
+        </tr>
+    </tbody>
+</table>-->
+
+<div class='container' id='task-container' style='padding-top:28px;'>
+    <div class='div' *ngIf="tasks">
+        <div class='col-md-2' *ngFor="let task of tasks">
+            <p>{{task.taskName}}</p>
+            <p>{{task.deadline}}</p>
+        </div>
+    </div>
+</div>
