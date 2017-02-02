@@ -10,7 +10,7 @@ namespace InterfaceTests
 {
     class Program
     {
-        static void Main(string[] args)
+        static void MainAPITest(string[] args)
         {
             StreamAPIBase twitch = new TwitchAPI("", "", ""); 
 
@@ -31,7 +31,7 @@ namespace InterfaceTests
 
             }
 
-            public override Task<Response<string>> AuthTokenGet()
+            public async override Task<Response<string>> AuthTokenGet()
             {
                 Response<string> res = new Response<string>();
                 return res; 
