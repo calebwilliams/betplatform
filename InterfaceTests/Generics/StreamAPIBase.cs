@@ -9,24 +9,33 @@ namespace InterfaceTests.Generics
 {
     public class StreamAPIBase
     {
+        public string Name { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
         public string BaseURL { get; set; }
         public string APIKey { get; set; }
         public string APIToken { get; set; }
         public Dictionary<string, string> EndPoints { get; set; }
-
+        public Dictionary<string, string> Headers { get; set; }
+        public AppConfig Config { get; set; } 
 
         public StreamAPIBase()
         {
+            Headers = new Dictionary<string, string>(); 
             EndPoints = new Dictionary<string, string>();
+            Config = new AppConfig();
         }
 
         public virtual async Task<Response<string>> AuthTokenGet()
         {
-            Response<string> res = new Response<string>();
+            Response <string> res = new Response<string>();
+            using (HttpClient client = new HttpClient())
+            {
+                
+                
+            }
 
-            return res; 
+                return res; 
         }
 
         /// <summary>

@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConfig.cs" />
     <Compile Include="Generics\Response.cs" />
     <Compile Include="Generics\StreamAPIBase.cs" />
     <Compile Include="Program.cs" />
