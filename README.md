@@ -7,13 +7,16 @@ and maybe bet on the outcome sometimes.
 ##Twitch			: https://dev.twitch.tv/docs 
 ##Azubub 			: http://content.azubu.tv/api/ 
 (30 second refresh rate)
-##Dailymotion		: https://developer.dailymotion.com/api
+##Dailymotion			: https://developer.dailymotion.com/api
 ##Hitbox 			: http://developers.hitbox.tv/
 ##UStream			: http://developers.ustream.tv/
 (Not Free)
-##Youtube Gaming	: https://developers.google.com/youtube/v3/live/docs/
-##Veetle API		: No URL, Lots of github repo's though 
+##Youtube Gaming		: https://developers.google.com/youtube/v3/live/docs/
+##Veetle API			: No URL, Lots of github repo's though 
 
+###Bitcoin Resources		
+##General Overview		: https://www.codeproject.com/articles/768412/nbitcoin-the-most-complete-bitcoin-port-part-crypt
+##C# Wallet Project		: https://github.com/MetacoSA/NBitcoin			
 Others:   
 ##Steam Broadcasting(https://steamcommunity.com/updates/broadcasting)
 It would be interesting to see if one couldn't get the data needed out of memory. Web api dosen't exist
