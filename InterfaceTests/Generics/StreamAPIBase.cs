@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,53 +15,49 @@ namespace InterfaceTests.Generics
         public string UserName { get; set; }
         public string Password { get; set; }
         public string BaseURL { get; set; }
-        public string APIKey { get; set; }
-        public string APIToken { get; set; }
+        public string APIKey { get; private set; }
+
         public Dictionary<string, string> EndPoints { get; set; }
         public Dictionary<string, string> Headers { get; set; }
-        public AppConfig Config { get; set; } 
-
-        public StreamAPIBase()
+        
+        public StreamAPIBase(string name, string apikey)
         {
+            Name = name;
             Headers = new Dictionary<string, string>(); 
             EndPoints = new Dictionary<string, string>();
-            Config = new AppConfig();
+            APIKey = apikey;
         }
 
-        public virtual async Task<Response<string>> AuthTokenGet()
+        public virtual string VisitEndpoint(string endpoint)
         {
-            Response <string> res = new Response<string>();
-            using (HttpClient client = new HttpClient())
-            {
-                
-                
-            }
+            HttpWebRequest req = HttpWebRequest.CreateHttp(endpoint);
 
-                return res; 
+
+            WebResponse response = (HttpWebResponse)req.GetResponse();
+            using (var reader = new StreamReader(response.GetResponseStream()))
+                return reader.ReadToEnd();
         }
 
-        /// <summary>
-        /// an idea for a simple request to get a dataset from a generic api call
-        /// would have to construct the baseurl to allow endpoint data to be connect at the end of the property
-        /// </summary>
-        /// <param name="endPoint"></param>
-        /// <returns></returns>
-        public virtual async Task<Response<string>> EndpointGet(string endPoint)
+        public async Task<Response<string>> VisitEndpointAsync(string endpoint)
         {
-            Response<string> res = new Response<string>();
+            Response<string> response = new Response<string>();
             try
             {
-                res.Query = $"{BaseURL}{EndPoints[endPoint]}";
-                // probably will always be overriden due to how apikeys need to be inserted 
-                using (var client = new HttpClient())
-                using (var clientResponse = await client.GetAsync(res.Query))
-                    res.Payload.Add(await clientResponse.Content.ReadAsStringAsync());
+                HttpWebRequest req = HttpWebRequest.CreateHttp(endpoint);
+                req.Accept = Headers["Accept"];
+                foreach (var pair in Headers.Where(x => x.Key != "Accept"))
+                    req.Headers.Add(pair.Key, pair.Value);
+
+                using (WebResponse res = await req.GetResponseAsync())
+                using (StreamReader reader = new StreamReader(res.GetResponseStream()))
+                    response.Result = await reader.ReadToEndAsync(); 
             }
             catch (Exception ex)
             {
-                res.Ex = ex;
+                response.Ex = ex;
             }
-            return res;
+
+            return response;
         }
 
         public bool IsAuthenticated()
