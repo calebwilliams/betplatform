@@ -19,7 +19,7 @@ namespace InterfaceTests.Generics
 
         public Dictionary<string, string> EndPoints { get; set; }
         public Dictionary<string, string> Headers { get; set; }
-        
+
         public StreamAPIBase(string name, string apikey)
         {
             Name = name;
@@ -32,8 +32,13 @@ namespace InterfaceTests.Generics
         {
             HttpWebRequest req = HttpWebRequest.CreateHttp(endpoint);
 
+            //there are a handful of headers you have to manually modify 
+            req.Accept = Headers["Accept"];
+            //for everything else, add it in this probably should be moved into its own method
+            foreach (var pair in Headers.Where(x => x.Key != "Accept"))
+                req.Headers.Add(pair.Key, pair.Value);
 
-            WebResponse response = (HttpWebResponse)req.GetResponse();
+            HttpWebResponse response = (HttpWebResponse)req.GetResponse();
             using (var reader = new StreamReader(response.GetResponseStream()))
                 return reader.ReadToEnd();
         }
@@ -49,20 +54,16 @@ namespace InterfaceTests.Generics
                     req.Headers.Add(pair.Key, pair.Value);
 
                 using (WebResponse res = await req.GetResponseAsync())
-                using (StreamReader reader = new StreamReader(res.GetResponseStream()))
-                    response.Result = await reader.ReadToEndAsync(); 
+                {
+                    using (StreamReader reader = new StreamReader(res.GetResponseStream()))
+                        response.Result = await reader.ReadToEndAsync();
+                }
             }
             catch (Exception ex)
             {
                 response.Ex = ex;
             }
-
             return response;
-        }
-
-        public bool IsAuthenticated()
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<Response<MongoDB.Bson.BsonDocument>> SaveAsConfig()

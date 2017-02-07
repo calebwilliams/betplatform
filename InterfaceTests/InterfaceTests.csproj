@@ -45,6 +45,10 @@
       <HintPath>..\packages\MongoDB.Driver.Core.2.4.1\lib\net45\MongoDB.Driver.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -59,7 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiObjects\DeleteMe.cs" />
+    <Compile Include="ApiObjects\TwitchAPI.cs" />
     <Compile Include="AppConfig.cs" />
+    <Compile Include="DatabaseModels\ChannelEndpoint.cs" />
+    <Compile Include="Generics\ChannelModel.cs" />
     <Compile Include="Generics\Response.cs" />
     <Compile Include="Generics\StreamAPIBase.cs" />
     <Compile Include="Program.cs" />
@@ -70,7 +78,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ApiObjects\" />
+    <Content Include="ApiResponses\twitch-feature-result.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utility\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
