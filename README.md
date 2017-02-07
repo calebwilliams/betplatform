@@ -24,8 +24,8 @@ It would be interesting to see if one couldn't get the data needed out of memory
 
 ##//todo: 2.1.2017
 ##i	Determine which api's to use to start building:
-		a. service that can consome and parse web data
-		b. determine backend schema for caching channels meta-data
+		a. service that can consome and parse web data (started twitch is done, we'll need to incorporate more to see if it works) 
+		b. determine backend schema for caching channels meta-data (started, will check in by 2.7.2016)
 		c. get some data out to the front end to mess around with 
 ##ii	Create Utility Objects for 
 		i.a - Generic Web Interface to interact with web api's
