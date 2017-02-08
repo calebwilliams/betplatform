@@ -18,23 +18,25 @@ namespace InterfaceTests
 {
     class Program
     {
-        static void MainAPI(string[] args)
+        static void Main(string[] args)
         {
             //we want this object to be separate, containing an iterable list of configutations
             AppConfig config = new AppConfig();
 
             /*Overview of demo to query twitch api */
-            StreamAPIBase twitch = new TwitchAPI("twitch", config.Tokens["twitch-api"]);
+            StreamAPIBase twitch = new TwitchAPI(config);
 
             //THIS CONNECTIONS TO API. FOR DEVELOPMENT USE /APIResponses/twitch-feature-result.txt instead
             string testData = ""; //string we'll load either api call or file.read into 
             bool complete = false;
             Response<string> apiResponse = new Response<string>();
+            Response<string> cacheResponse = new Response<string>();
             Task.Run(async () =>
             {
                 //a list of 
                 apiResponse = await twitch.VisitEndpointAsync("https://api.twitch.tv/kraken/streams/featured");
                 testData = apiResponse.Result;
+                cacheResponse = await twitch.CacheChannelEndpointAsync(testData); 
                 complete = true;
             });
             while (!complete)
@@ -43,27 +45,10 @@ namespace InterfaceTests
             }
             //end test container
             
-
-
             /* THIS IS FOR LOCATION CONNECTIONS. EDIT THE C:/Users/caleb to whatever the twitch-feature-result.txt path is
             //bad untestable code. will break other's builds 
             string testData = File.ReadAllText(@"C:/Users/caleb/Documents/GitHub/BetPlatformAlpha/InterfaceTests/ApiResponses/twitch-feature-result.txt");
             */
-            BsonDocument doc = BsonDocument.Parse(testData);
-
-            
-            int cnt = doc["featured"].AsBsonArray.Count;
-
-            foreach (var _doc in doc["featured"].AsBsonArray)
-            {
-                string id = (string)_doc["stream"]["channel"]["_id"]; 
-                string name = (string)_doc["stream"]["channel"]["name"];
-                string game = (string)_doc["stream"]["game"];
-                string url = (string)_doc["stream"]["channel"]["url"];
-                int views = (int)_doc["stream"]["channel"]["views"];
-
-                Console.WriteLine($"id : {id} | streamer: {name} | views: {views} | game {game} | url: {url} ");
-            }
             
             Console.ReadLine();
         }

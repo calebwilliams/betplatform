@@ -13,6 +13,10 @@ namespace InterfaceTests.DatabaseModels
     {
         [BsonElement("_id")]
         public ObjectId Id { get; set; }
+        [BsonElement("aid")]
+        public string ApiId { get; set; }
+        [BsonElement("g")]
+        public string Game { get; set; }
         [BsonElement("n")]
         public string Name { get; set; }
         [BsonElement("url")]
@@ -25,7 +29,9 @@ namespace InterfaceTests.DatabaseModels
         public string EndpointUrl { get; set; }
         [BsonElement("cvc")]
         public int CurrentViewerCount { get; set; }
+        [BsonElement("tvc")]
+        public int TotalViewCount { get; set; } 
 
-        
+
     }
 }

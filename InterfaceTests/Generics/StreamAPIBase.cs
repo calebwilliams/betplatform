@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace InterfaceTests.Generics
 {
-    public class StreamAPIBase
+    public abstract class StreamAPIBase
     {
+        public AppConfig _config; 
         public string Name { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
@@ -26,6 +27,15 @@ namespace InterfaceTests.Generics
             Headers = new Dictionary<string, string>(); 
             EndPoints = new Dictionary<string, string>();
             APIKey = apikey;
+        }
+
+        public StreamAPIBase(AppConfig config, string name)
+        {
+            Name = name; 
+            _config = config;
+            Headers = new Dictionary<string, string>();
+            EndPoints = new Dictionary<string, string>();
+            APIKey = _config.Tokens[name]; 
         }
 
         public virtual string VisitEndpoint(string endpoint)
@@ -50,14 +60,12 @@ namespace InterfaceTests.Generics
             {
                 HttpWebRequest req = HttpWebRequest.CreateHttp(endpoint);
                 req.Accept = Headers["Accept"];
-                foreach (var pair in Headers.Where(x => x.Key != "Accept"))
+                foreach (var pair in Headers.Where(x => x.Key != "Accept")) //messy and difficult to adapt to other apis. Should separate headers
                     req.Headers.Add(pair.Key, pair.Value);
 
                 using (WebResponse res = await req.GetResponseAsync())
-                {
                     using (StreamReader reader = new StreamReader(res.GetResponseStream()))
                         response.Result = await reader.ReadToEndAsync();
-                }
             }
             catch (Exception ex)
             {
@@ -66,11 +74,21 @@ namespace InterfaceTests.Generics
             return response;
         }
 
+        public virtual Task<Response<string>> CacheChannelEndpointAsync(string apiData)
+        {
+            var response = new Response<string>();
+            response.Result = "Higher class not instantiated";
+            response.Ex = new Exception("Call this method from the parent class");
+            return Task.FromResult(response); 
+        }
+
         public async Task<Response<MongoDB.Bson.BsonDocument>> SaveAsConfig()
         {
             //I like the idea of being able to save a template of an api object so 
             //we have the option to instantiate from a database call 
-            //incase we have to query an api for something in the web application            
+            //incase we have to query an api for something in the web application     
+            
+                   
             throw new NotImplementedException();
         }
     }
