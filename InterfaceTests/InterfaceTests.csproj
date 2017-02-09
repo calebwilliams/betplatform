@@ -63,12 +63,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiObjects\AzubuAPI.cs" />
     <Compile Include="ApiObjects\DeleteMe.cs" />
     <Compile Include="ApiObjects\TwitchAPI.cs" />
     <Compile Include="AppConfig.cs" />
     <Compile Include="DatabaseModels\ChannelEndpoint.cs" />
+    <Compile Include="Generics\ParseConfig.cs" />
     <Compile Include="Generics\Response.cs" />
-    <Compile Include="Generics\StreamAPIBase.cs" />
+    <Compile Include="Generics\APIBase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\MongoAccess.cs" />
@@ -78,6 +80,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ApiResponses\azubu-live-result.txt" />
     <Content Include="ApiResponses\twitch-feature-result.txt" />
   </ItemGroup>
   <ItemGroup />

@@ -24,7 +24,9 @@ namespace InterfaceTests
             AppConfig config = new AppConfig();
 
             /*Overview of demo to query twitch api */
-            StreamAPIBase twitch = new TwitchAPI(config);
+            APIBase twitch = new TwitchAPI(config);
+            APIBase azubu = new AzubuAPI(config);
+
 
             //THIS CONNECTIONS TO API. FOR DEVELOPMENT USE /APIResponses/twitch-feature-result.txt instead
             string testData = ""; //string we'll load either api call or file.read into 
@@ -34,9 +36,10 @@ namespace InterfaceTests
             Task.Run(async () =>
             {
                 //a list of 
-                apiResponse = await twitch.VisitEndpointAsync("https://api.twitch.tv/kraken/streams/featured");
+                //TWTICH TEST: apiResponse = await twitch.VisitEndpointAsync("https://api.twitch.tv/kraken/streams/featured");
+                apiResponse = await azubu.VisitEndpointAsync("http://api.azubu.tv/public/channel/live/list");
                 testData = apiResponse.Result;
-                cacheResponse = await twitch.CacheChannelEndpointAsync(testData); 
+                cacheResponse = await azubu.CacheChannelEndpointAsync(testData, "data"); 
                 complete = true;
             });
             while (!complete)

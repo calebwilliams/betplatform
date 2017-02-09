@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace InterfaceTests.ApiObjects
 {
-    public class TwitchAPI : StreamAPIBase
+    public class TwitchAPI : APIBase
     {
         /// <summary>
         /// https://dev.twitch.tv/docs
@@ -28,16 +28,17 @@ namespace InterfaceTests.ApiObjects
 
         }
 
-        public override async Task<Response<string>> CacheChannelEndpointAsync(string apiData)
+        public override async Task<Response<string>> CacheChannelEndpointAsync(string apiData, string root)
         {
             Response<string> response = new Response<string>();
             List<ChannelEndpoint> cache = new List<ChannelEndpoint>();
             try
             {
                 BsonDocument doc = BsonDocument.Parse(apiData);
-                int cnt = doc["featured"].AsBsonArray.Count;
                 foreach (var _doc in doc["featured"].AsBsonArray)
                 {
+                    //i'd like to be able for this to be configurable in a separate class
+                    //so that you could iterate through a collection of array indexes to set the object's properties
                     ChannelEndpoint temp = new ChannelEndpoint();
                     temp.ApiId = (string)_doc["stream"]["channel"]["_id"];
                     temp.Name = (string)_doc["stream"]["channel"]["name"];

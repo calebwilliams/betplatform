@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace InterfaceTests.Generics
 {
-    public abstract class StreamAPIBase
+    public abstract class APIBase
     {
         public AppConfig _config; 
         public string Name { get; set; }
@@ -21,7 +21,7 @@ namespace InterfaceTests.Generics
         public Dictionary<string, string> EndPoints { get; set; }
         public Dictionary<string, string> Headers { get; set; }
 
-        public StreamAPIBase(string name, string apikey)
+        public APIBase(string name, string apikey)
         {
             Name = name;
             Headers = new Dictionary<string, string>(); 
@@ -29,7 +29,7 @@ namespace InterfaceTests.Generics
             APIKey = apikey;
         }
 
-        public StreamAPIBase(AppConfig config, string name)
+        public APIBase(AppConfig config, string name)
         {
             Name = name; 
             _config = config;
@@ -43,7 +43,8 @@ namespace InterfaceTests.Generics
             HttpWebRequest req = HttpWebRequest.CreateHttp(endpoint);
 
             //there are a handful of headers you have to manually modify 
-            req.Accept = Headers["Accept"];
+            if (Headers.ContainsKey("Accept"))
+                req.Accept = Headers["Accept"];
             //for everything else, add it in this probably should be moved into its own method
             foreach (var pair in Headers.Where(x => x.Key != "Accept"))
                 req.Headers.Add(pair.Key, pair.Value);
@@ -59,7 +60,8 @@ namespace InterfaceTests.Generics
             try
             {
                 HttpWebRequest req = HttpWebRequest.CreateHttp(endpoint);
-                req.Accept = Headers["Accept"];
+                if (Headers.ContainsKey("Accept"))
+                    req.Accept = Headers["Accept"];
                 foreach (var pair in Headers.Where(x => x.Key != "Accept")) //messy and difficult to adapt to other apis. Should separate headers
                     req.Headers.Add(pair.Key, pair.Value);
 
@@ -74,7 +76,7 @@ namespace InterfaceTests.Generics
             return response;
         }
 
-        public virtual Task<Response<string>> CacheChannelEndpointAsync(string apiData)
+        public virtual Task<Response<string>> CacheChannelEndpointAsync(string apiData, string root)
         {
             var response = new Response<string>();
             response.Result = "Higher class not instantiated";
