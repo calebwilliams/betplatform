@@ -4,8 +4,8 @@ a service that allows people to quickly determine what stream they'd like to wat
 and maybe bet on the outcome sometimes. 
 
 ##API Listings
-##Twitch			: https://dev.twitch.tv/docs 
-##Azubub 			: http://content.azubu.tv/api/ 
+##Twitch			: https://dev.twitch.tv/docs [started]
+##Azubub 			: http://content.azubu.tv/api/ [started]
 (30 second refresh rate)
 ##Dailymotion			: https://developer.dailymotion.com/api
 ##Hitbox 			: http://developers.hitbox.tv/
