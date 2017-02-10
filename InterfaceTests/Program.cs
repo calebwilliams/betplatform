@@ -37,8 +37,10 @@ namespace InterfaceTests
             {
                 //a list of 
                 //TWTICH TEST: apiResponse = await twitch.VisitEndpointAsync("https://api.twitch.tv/kraken/streams/featured");
-                apiResponse = await azubu.VisitEndpointAsync("http://api.azubu.tv/public/channel/live/list");
-                testData = apiResponse.Result;
+                //apiResponse = await azubu.VisitEndpointAsync("http://api.azubu.tv/public/channel/live/list");
+                /*testing*/
+                //testData = apiResponse.Result;
+                testData = File.ReadAllText(@"C:\Users\caleb\Documents\GitHub\BetPlatformAlpha\InterfaceTests\ApiResponses\azubu-live-result.txt");
                 cacheResponse = await azubu.CacheChannelEndpointAsync(testData, "data"); 
                 complete = true;
             });

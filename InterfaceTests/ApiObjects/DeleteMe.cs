@@ -8,65 +8,98 @@ namespace InterfaceTests.ApiObjects
 {
     class DeleteMe
     {
+        //azubu response 
 
         public class Rootobject
         {
-            public Featured[] featured { get; set; }
+            public Datum[] data { get; set; }
+            public int total { get; set; }
+            public int limit { get; set; }
+            public int offset { get; set; }
         }
 
-        public class Featured
+        public class Datum
         {
-            public string text { get; set; }
+            public User user { get; set; }
             public string title { get; set; }
-            public bool sponsored { get; set; }
-            public int priority { get; set; }
-            public bool scheduled { get; set; }
-            public string image { get; set; }
-            public Stream stream { get; set; }
+            public string url_thumbnail { get; set; }
+            public string url_thumbnail_mobile { get; set; }
+            public bool is_live { get; set; }
+            public Category category { get; set; }
+            public object language { get; set; }
+            public int followers_count { get; set; }
+            public int view_count { get; set; }
+            public int vods_view_count { get; set; }
+            public string created_at { get; set; }
+            public string updated_at { get; set; }
+            public string url_channel { get; set; }
+            public string url_stream { get; set; }
+            public string url_chat { get; set; }
         }
 
-        public class Stream
+        public class User
         {
-            public string game { get; set; }
-            public int viewers { get; set; }
-            public int video_height { get; set; }
-            public float average_fps { get; set; }
-            public string _id { get; set; }
-            public int delay { get; set; }
-            public DateTime created_at { get; set; }
-            public bool is_playlist { get; set; }
-            public Preview preview { get; set; }
-            public Channel channel { get; set; }
-        }
-
-        public class Preview
-        {
-            public string small { get; set; }
-            public string medium { get; set; }
-            public string large { get; set; }
-            public string template { get; set; }
-        }
-
-        public class Channel
-        {
-            public bool mature { get; set; }
-            public string status { get; set; }
-            public string broadcaster_language { get; set; }
+            public int id { get; set; }
+            public string username { get; set; }
+            public Team[] teams { get; set; }
+            public Profile profile { get; set; }
             public string display_name { get; set; }
-            public string game { get; set; }
-            public string language { get; set; }
+            public string alt_name { get; set; }
+        }
+
+        public class Profile
+        {
+            public object country { get; set; }
+            public object time_zone { get; set; }
+            public object locale { get; set; }
+            public object ui_primary_language { get; set; }
+            public string in_game_name { get; set; }
+            public string first_name { get; set; }
+            public string last_name { get; set; }
+            public string dob { get; set; }
+            public object phone_number { get; set; }
+            public object skype_account { get; set; }
+            public string twitter_id { get; set; }
+            public string twitter_account { get; set; }
+            public string twitter_url { get; set; }
+            public string facebook_id { get; set; }
+            public string facebook_account { get; set; }
+            public string facebook_url { get; set; }
+            public string website { get; set; }
+            public object youtube_url { get; set; }
+            public object instagram_url { get; set; }
+            public object e_sportspedia_url { get; set; }
+            public string biography { get; set; }
+            public string url_photo_small { get; set; }
+            public string url_photo_large { get; set; }
+        }
+
+        public class Team
+        {
+            public Team1 team { get; set; }
+            public Role role { get; set; }
+        }
+
+        public class Team1
+        {
+            public int id { get; set; }
             public string name { get; set; }
-            public DateTime created_at { get; set; }
-            public DateTime updated_at { get; set; }
-            public string _id { get; set; }
-            public string logo { get; set; }
-            public string video_banner { get; set; }
-            public string profile_banner { get; set; }
-            public string profile_banner_background_color { get; set; }
-            public bool partner { get; set; }
-            public string url { get; set; }
-            public int views { get; set; }
-            public int followers { get; set; }
+            public string title { get; set; }
+        }
+
+        public class Role
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+            public string role { get; set; }
+        }
+
+        public class Category
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+            public string title { get; set; }
+            public string url_thumbnail { get; set; }
         }
 
     }
