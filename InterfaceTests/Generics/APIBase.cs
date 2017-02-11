@@ -102,6 +102,7 @@ namespace InterfaceTests.Generics
                         Response<string> temp = await endpointMethod();
                         //unfortunately, here lies a black hole of logging 
                         //temp.CacheResponse(); //going to be necessary. error handling is fucked. need to make the incoming collection async safe... 
+                        //likeiwse... it would have to be here to throttle queries at endpoints... 
                     });
                 }
                 catch (Exception ex)

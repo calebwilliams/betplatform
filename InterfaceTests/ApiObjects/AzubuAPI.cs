@@ -15,10 +15,13 @@ namespace InterfaceTests.ApiObjects
     {
         public AzubuAPI(AppConfig config) : base(config, "azubu")
         {
-            //this.EndPoints.Add("live", "http://api.azubu.tv/public/channel/live/list");
             this.EndpointActionCollection.Add(new EndpointAction(ConsumeLive));
         }
 
+        /// <summary>
+        /// Live endpoint data... need to consume by games instead. 
+        /// </summary>
+        /// <returns></returns>
         public async Task<Response<string>> ConsumeLive()
         {
             Response<string> response = new Response<string>();
@@ -56,38 +59,6 @@ namespace InterfaceTests.ApiObjects
 
             return response; 
 
-        }
-
-        public override async Task<Response<string>> CacheChannelEndpointAsync(string apiData, string root)
-        {
-            Response<string> response = new Response<string>(apiData);
-            List<ChannelEndpoint> cache = new List<ChannelEndpoint>();
-            try
-            {
-                BsonDocument doc = BsonDocument.Parse(apiData);
-                int cnt = doc[0].AsBsonArray.Count; 
-                foreach (var _doc in doc[0].AsBsonArray)
-                {
-                    ChannelEndpoint temp = new ChannelEndpoint();
-                    temp.ApiId= _doc["user"]["id"].ToString(); 
-                    //temp.Game = need to find a way to populate friggin' games. 
-                    temp.Name = (string)_doc["user"]["username"];
-                    temp.EndpointUrl = (string)_doc["url_channel"];
-                    temp.TotalViewCount = (int)_doc["view_count"];
-                    temp.OrigionalCacheDate = DateTime.Now;
-                    temp.LatesteCacheDate = DateTime.Now;
-                    cache.Add(temp);
-                }
-                MongoAccess mongo = new MongoAccess(_config.ConnectionStrings["local"], "stream_cache");
-                var col = mongo.DBContext.GetCollection<ChannelEndpoint>("azubu");
-                await col.InsertManyAsync(cache);
-                response.Result = "Insert successful";
-            }
-            catch (Exception ex)
-            {
-                response.ReceiveException(ex, MethodBase.GetCurrentMethod());
-            }
-            return response; 
         }
     }
 }

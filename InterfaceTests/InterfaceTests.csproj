@@ -68,7 +68,6 @@
     <Compile Include="ApiObjects\TwitchAPI.cs" />
     <Compile Include="AppConfig.cs" />
     <Compile Include="DatabaseModels\ChannelEndpoint.cs" />
-    <Compile Include="Generics\ParseConfig.cs" />
     <Compile Include="Generics\Response.cs" />
     <Compile Include="Generics\APIBase.cs" />
     <Compile Include="Program.cs" />
