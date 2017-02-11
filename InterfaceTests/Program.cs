@@ -26,22 +26,15 @@ namespace InterfaceTests
             /*Overview of demo to query twitch api */
             APIBase twitch = new TwitchAPI(config);
             APIBase azubu = new AzubuAPI(config);
+            
 
-
-            //THIS CONNECTIONS TO API. FOR DEVELOPMENT USE /APIResponses/twitch-feature-result.txt instead
-            string testData = ""; //string we'll load either api call or file.read into 
+            //THIS CONNECTS TO API. FOR DEVELOPMENT USE /APIResponses/twitch-feature-result.txt instead
+            //string testData = ""; //string we'll load either api call or file.read into 
             bool complete = false;
             Response<string> apiResponse = new Response<string>();
-            Response<string> cacheResponse = new Response<string>();
             Task.Run(async () =>
             {
-                //a list of 
-                //TWTICH TEST: apiResponse = await twitch.VisitEndpointAsync("https://api.twitch.tv/kraken/streams/featured");
-                //apiResponse = await azubu.VisitEndpointAsync("http://api.azubu.tv/public/channel/live/list");
-                /*testing*/
-                //testData = apiResponse.Result;
-                testData = File.ReadAllText(@"C:\Users\caleb\Documents\GitHub\BetPlatformAlpha\InterfaceTests\ApiResponses\azubu-live-result.txt");
-                cacheResponse = await azubu.CacheChannelEndpointAsync(testData, "data"); 
+                apiResponse = await azubu.CacheChannelEndpoints(); 
                 complete = true;
             });
             while (!complete)
