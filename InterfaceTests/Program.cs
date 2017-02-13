@@ -30,16 +30,24 @@ namespace InterfaceTests
 
             //THIS CONNECTS TO API. FOR DEVELOPMENT USE /APIResponses/twitch-feature-result.txt instead
             //string testData = ""; //string we'll load either api call or file.read into 
-            bool complete = false;
+            int i = 10; 
             Response<string> apiResponse = new Response<string>();
-            Task.Run(async () =>
+            while (i != 0)
             {
-                apiResponse = await azubu.CacheChannelEndpoints(); 
-                complete = true;
-            });
-            while (!complete)
-            {
-                Thread.Sleep(3000);
+                bool complete = false;
+                Task.Run(async () =>
+                {
+                    apiResponse = await twitch.CacheChannelEndpoints();
+                    complete = true;
+                });
+                while (!complete)
+                {
+                    Console.WriteLine("Thread sleeping for 3seconds"); 
+                    Thread.Sleep(3000);
+                }
+                Console.WriteLine("Thread sleeping for 20 sesconds"); 
+                Thread.Sleep(20000);
+                i = i - 1;
             }
             //end test container
             

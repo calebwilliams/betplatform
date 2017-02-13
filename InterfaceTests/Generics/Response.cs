@@ -37,5 +37,10 @@ namespace InterfaceTests.Generics
             Result = $"Error occured somewhere around {methodBase.Name} ...maybe.";
 
         }
+
+        internal void Consume(Response<string> response)
+        {
+            
+        }
     }
 }

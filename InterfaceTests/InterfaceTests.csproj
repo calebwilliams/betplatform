@@ -68,6 +68,7 @@
     <Compile Include="ApiObjects\TwitchAPI.cs" />
     <Compile Include="AppConfig.cs" />
     <Compile Include="DatabaseModels\ChannelEndpoint.cs" />
+    <Compile Include="DatabaseModels\GameModel.cs" />
     <Compile Include="Generics\Response.cs" />
     <Compile Include="Generics\APIBase.cs" />
     <Compile Include="Program.cs" />
@@ -81,6 +82,7 @@
   <ItemGroup>
     <Content Include="ApiResponses\azubu-live-result.txt" />
     <Content Include="ApiResponses\twitch-feature-result.txt" />
+    <Content Include="ApiResponses\twitch-game-top-result.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

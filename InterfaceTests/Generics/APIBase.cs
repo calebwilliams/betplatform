@@ -108,7 +108,7 @@ namespace InterfaceTests.Generics
                 catch (Exception ex)
                 {
                     response.ReceiveException(ex, MethodBase.GetCurrentMethod());
-                    response.Query = "Exception thrown gather channel endpoints";
+                    response.Query = "Exception thrown cache channel endpoints";
                 }
             }
             return response; 
