@@ -10,6 +10,7 @@ namespace InterfaceTests.Generics
     public class Response<T>
     {
         public List<T> ResultCollection { get; set; }
+        public List<Response<T>> ResponseCollection { get; set; }
         public string Query { get; set; }
         public string Result { get; set; }
         public Exception Exception { get; internal set; }
@@ -18,6 +19,7 @@ namespace InterfaceTests.Generics
 
         public Response()
         {
+            ResponseCollection = new List<Response<T>>(); 
             ResultCollection = new List<T>();
         }
 
@@ -38,9 +40,11 @@ namespace InterfaceTests.Generics
 
         }
 
-        internal void Consume(Response<string> response)
+        internal void Consume(Response<T> response)
         {
-            
+            foreach (var res in response.ResponseCollection)
+                this.ResponseCollection.Add(res);
+            this.ResponseCollection.Add(response); 
         }
     }
 }

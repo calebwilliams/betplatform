@@ -99,7 +99,7 @@ namespace InterfaceTests.Generics
                 {
                     await Task.Run(async () =>
                     {
-                        Response<string> temp = await endpointMethod();
+                        response.Consume(await endpointMethod());
                         //unfortunately, here lies a black hole of logging 
                         //temp.CacheResponse(); //going to be necessary. error handling is fucked. need to make the incoming collection async safe... 
                         //likeiwse... it would have to be here to throttle queries at endpoints... 

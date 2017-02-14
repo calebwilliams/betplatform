@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Attributes;
 using InterfaceTests.Generics;
+using InterfaceTests.Utility;
 
 namespace InterfaceTests.DatabaseModels
 {
@@ -31,7 +32,35 @@ namespace InterfaceTests.DatabaseModels
         public int CurrentViewerCount { get; set; }
         [BsonElement("tvc")]
         public int TotalViewCount { get; set; } 
+    }
 
+    public class ChannelEndpointCollection
+    {
+        public List<ChannelEndpoint> Cache { get; set; }
+        public string QueryBase { get; set; }
+        public string Query { get; set; }
+        public string OffsetUrl { get; set; }
+        public int OffsetModifier { get; set; }
 
+        public ChannelEndpointCollection(string queryBase)
+        {
+            QueryBase = queryBase;
+            OffsetUrl = "&offset=";
+            OffsetModifier = 100;
+            Cache = new List<ChannelEndpoint>();
+        }
+
+        public void SetQuery(int iteration)
+        {
+            Query = QueryBase + OffsetUrl + (iteration * OffsetModifier).ToString();
+        }
+
+        public async Task<Response<string>> SaveCache(MongoAccess mongo, string collection)
+        {
+            Response<string> response = new Response<string>();
+            var col = mongo.DBContext.GetCollection<ChannelEndpoint>(collection);
+            await col.InsertManyAsync(Cache);
+            return response; 
+        }
     }
 }
