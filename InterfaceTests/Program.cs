@@ -26,8 +26,13 @@ namespace InterfaceTests
             /*Overview of demo to query twitch api */
             APIBase twitch = new TwitchAPI(config);
             APIBase azubu = new AzubuAPI(config);
-            
 
+            HitBoxAPI hitbox = new HitBoxAPI(config);   
+            /*  Need to register app on hitbox.tv and edit AppConfig.cs before calling this                
+            string response = hitbox.authenticateCall();
+            Console.WriteLine(response);
+            Console.WriteLine(hitbox.VisitEndpoint("https://api.hitbox.tv/media/live/list")); */
+            
             //THIS CONNECTS TO API. FOR DEVELOPMENT USE /APIResponses/twitch-feature-result.txt instead
             //string testData = ""; //string we'll load either api call or file.read into 
             int i = 10; 
@@ -37,7 +42,7 @@ namespace InterfaceTests
                 bool complete = false;
                 Task.Run(async () =>
                 {
-                    apiResponse = await twitch.CacheChannelEndpoints();
+                    apiResponse = await azubu.CacheChannelEndpoints();
                     complete = true;
                 });
                 while (!complete)
