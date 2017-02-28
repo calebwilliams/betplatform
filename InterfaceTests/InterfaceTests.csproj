@@ -63,8 +63,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\CredentialsPost.cs" />
+    <Compile Include="ApiModels\TokenPost.cs" />
     <Compile Include="ApiObjects\AzubuAPI.cs" />
     <Compile Include="ApiObjects\DeleteMe.cs" />
+    <Compile Include="ApiObjects\HitBoxAPI.cs" />
     <Compile Include="ApiObjects\TwitchAPI.cs" />
     <Compile Include="AppConfig.cs" />
     <Compile Include="DatabaseModels\ChannelEndpoint.cs" />
